@@ -714,6 +714,7 @@ GameObject:
   - component: {fileID: 552801136}
   - component: {fileID: 552801135}
   - component: {fileID: 552801137}
+  - component: {fileID: 552801138}
   m_Layer: 0
   m_Name: AntiTank
   m_TagString: Untagged
@@ -808,6 +809,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &552801138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552801134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac72881c17b60c4a9abaedb31229dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +922,7 @@ GameObject:
   - component: {fileID: 1856796941}
   - component: {fileID: 1856796943}
   - component: {fileID: 1856796942}
+  - component: {fileID: 1856796944}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -3914,3 +3928,29 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!61 &1856796944
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856796940}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.05478096, y: -0.004201412}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 22.109562, y: 11.991597}
+  m_EdgeRadius: 0
