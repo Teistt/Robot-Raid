@@ -2,8 +2,9 @@ using UnityEngine;
 
 public static class Utils
 {
-
     static Texture2D _whiteTexture;
+
+    //Singleton
     public static Texture2D WhiteTexture
     {
         get
