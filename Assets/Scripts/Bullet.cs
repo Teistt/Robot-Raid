@@ -9,7 +9,8 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private float propulsionForce = 50f;
     [SerializeField] private float explosionRadius = 0f;
-
+    [SerializeField] private float knockbackForce = 1000f;
+    
     private Vector3 creationPoint;
     private Rigidbody2D rb;
 
@@ -21,48 +22,22 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         rb=GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.forward*propulsionForce);
+
+        
+        float alpha = gameObject.transform.eulerAngles.z *Mathf.Deg2Rad;
+        Vector2 xy = new Vector2(Mathf.Cos(alpha), Mathf.Sin(alpha));
+        xy.Normalize();
+        rb.AddForce(xy*propulsionForce,ForceMode2D.Impulse);
     }
 
 
     void OnEnable()
     {
-        rb.AddForce(new Vector2(propulsionForce, 0f));
     }
 
     void FixedUpdate()
     {
 
-    }
-
-    private void hit()
-    {
-        Vector3 dir = creationPoint - target.position;
-        //Debug.Log("firepoint: " + creationPoint+ "target: " + target.position);
-        //Debug.Log(dir);
-        //Debug.Log("rot: "+Quaternion.LookRotation(dir));
-        //Quand on hit on fait spawn des particules
-        //GameObject effectIns = (GameObject)Instantiate(impactEffect, transform.position, Quaternion.LookRotation(dir));
-        
-
-        if (explosionRadius > 0)
-        {
-            Explode();
-        }
-        else
-        {
-            //effectIns.transform.position = target.position + dir.normalized * 1.5f;
-            Damage(target);
-        }
-
-        //Destroy(target.gameObject);
-
-        //on détruit la boulette
-
-        //Destroy(gameObject);
-        OnEnd();
-
-        //gameObject.SetActive(false);
     }
 
     void Explode()
@@ -82,27 +57,14 @@ public class Bullet : MonoBehaviour
     private void OnEnd()
     {
         Instantiate(impactEffect, transform.position, Quaternion.identity);
-        Disable?.Invoke(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()
     {
-        Disable?.Invoke(gameObject);
+        Destroy(gameObject);
     }
 
-    void Damage(Transform enemy)
-    {/*
-        Enemy e = enemy.GetComponent<Enemy>();
-        if (e == null)
-        {
-            Debug.LogError("pas de script ennemi trouvé");
-        }
-        else
-        {
-            e.TakeDamage(damage);
-        }*/
-
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Unit")
@@ -113,6 +75,8 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.GetComponent<EnemyLife>().GetHit(damage);
+            Vector3 knockback =  collision.transform.position-rb.transform.position ;
+            collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
         }
         
         OnEnd();
