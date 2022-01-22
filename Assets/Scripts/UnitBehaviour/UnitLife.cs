@@ -5,6 +5,7 @@ public class UnitLife : MonoBehaviour
 {
     [SerializeField] private int life = 4;
     [SerializeField] private GameObject deadSprite;
+    [SerializeField] private GameObject hitVFX;
 
 
     private Animator anim;
@@ -22,6 +23,7 @@ public class UnitLife : MonoBehaviour
 
     public void GetHit(int damage)
     {
+        Instantiate(hitVFX, transform);
         life -= damage;
         if (life <= 0)
         {
@@ -42,6 +44,6 @@ public class UnitLife : MonoBehaviour
         {
             Instantiate(deadSprite, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject,.2f);
+        Destroy(gameObject);
     }
 }

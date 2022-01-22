@@ -2519,6 +2519,7 @@ MonoBehaviour:
   - {fileID: 8142656157520608100, guid: 8d878df592712044bb2f894aaa5a77c9, type: 3}
   - {fileID: 9145040601395170273, guid: 1a398b57ac75f254f9111467175c50c0, type: 3}
   - {fileID: 6353077423217331018, guid: 13c2d80f9c973c947a8c222910e7bd41, type: 3}
+  robotsCost: 01000000020000000400000005000000
   pickUps:
   - {fileID: 3722540995217157498, guid: 15bf1fd4e7c6db644a3eb98193a2bc65, type: 3}
   - {fileID: 6338374474449184196, guid: 9cf9a04502901c442aa62e47c5b1f2b3, type: 3}
@@ -2526,8 +2527,8 @@ MonoBehaviour:
   - {fileID: 9070592177775849931, guid: 7817fe49d5589dd4eb00a78a7b15811e, type: 3}
   unitsList: []
   score: 0
-  probability: 50
-  _isDebugNoSpawn: 1
+  probability: 20
+  _isDebugNoSpawn: 0
   spawnerTimer: 10
   gameScene:
     serializedVersion: 2
@@ -2535,6 +2536,7 @@ MonoBehaviour:
     y: -4.5
     width: 17
     height: 9
+  dropDown: 0
 --- !u!114 &1329973066
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -172,7 +172,7 @@ MonoBehaviour:
   life: 4
   reward: 10
   deadSprite: {fileID: 5812729137899427258, guid: ce3c643c19b22da4482bf649b5a8e55e, type: 3}
-  enemyCost: 3
+  enemyCost: 4
 --- !u!114 &6353077423217331011
 MonoBehaviour:
   m_ObjectHideFlags: 0

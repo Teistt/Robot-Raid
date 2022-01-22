@@ -77,6 +77,13 @@ public class UnitMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            walkDestination = transform.position;
+        }
+    }
     public void SetDestination(Vector3 destination)
     {
         walkDestination = destination;
