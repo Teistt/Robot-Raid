@@ -41,7 +41,8 @@ public class Bullet : MonoBehaviour
     }
 
     void Explode()
-    {/*
+    {
+        /*
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 

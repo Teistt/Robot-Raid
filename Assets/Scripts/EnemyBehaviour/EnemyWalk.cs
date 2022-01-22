@@ -13,6 +13,21 @@ public class EnemyWalk : MonoBehaviour
     private EnemyAttack attackScript;
 
 
+    private void OnEnable()
+    {
+        GameManager.OnGameOver += OnGameOver;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= OnGameOver;
+    }
+
+    void OnGameOver()
+    {
+        this.enabled = false;
+    }
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -24,15 +39,15 @@ public class EnemyWalk : MonoBehaviour
     void Start()
     {
         FindNearestUnit();
-        //Permet de lancer la fonction FindNearestUnit toutes les 0.5s à partir de 0s
-        InvokeRepeating("FindNearestUnit", 0f, 0.5f);
+        //Permet de lancer la fonction FindNearestUnit toutes les 0.2s à partir de 0s
+        //Game at 30fps so every 6 frames
+        InvokeRepeating("FindNearestUnit", 0f, 0.2f);
     }
 
     void FixedUpdate()
     {
         if (targetUnit == null)
         {
-            Debug.LogError("no target unit found!");
             return;
         }
 
@@ -81,8 +96,6 @@ public class EnemyWalk : MonoBehaviour
         {
             attackScript.StopAttack();
             actualDir = walkDestination - transform.position;
-            //transform.Translate(actualDir.normalized * walkSpeed * Time.deltaTime, Space.World);
-            //rb.MovePosition(walkDestination);
             actualDir.x = Mathf.Clamp(actualDir.x, -1f, 1f);
             actualDir.y = Mathf.Clamp(actualDir.y, -1f, 1f);
 

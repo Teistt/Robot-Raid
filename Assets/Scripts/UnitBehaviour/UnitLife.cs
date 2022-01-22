@@ -4,34 +4,44 @@ using UnityEngine;
 public class UnitLife : MonoBehaviour
 {
     [SerializeField] private int life = 4;
+    [SerializeField] private GameObject deadSprite;
 
-    public static event Action OnUnitDie;
 
-    void Start()
+    private Animator anim;
+
+
+    public static event Action<GameObject> OnUnitDie;
+    public static event Action<GameObject> OnUnitSpawn;
+
+    void Awake()
     {
-        
+        OnUnitSpawn?.Invoke(gameObject);
+        anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void GetHit(int damage)
     {
         life -= damage;
-        Debug.Log("unit hit");
         if (life <= 0)
         {
             Die();
         }
+        else
+        {
+            anim.SetTrigger("_getHit");
+        }
     }
+
 
     void Die()
     {
-
-        OnUnitDie?.Invoke();
-        //Destroy(gameObject);
+        OnUnitDie?.Invoke(gameObject);
+        GetComponent<UnitsSelection>().Deselect();
+        if (deadSprite != null)
+        {
+            Instantiate(deadSprite, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject,.2f);
     }
 }

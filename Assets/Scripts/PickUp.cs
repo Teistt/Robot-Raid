@@ -1,15 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+    [SerializeField] private GameObject unitToSpawn;
+    private bool hasBeenUsed = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Unit")
         {
-            Debug.Log("pick up");
+            if (hasBeenUsed)
+            {
+                return;
+            }
+            hasBeenUsed = true;
+            Instantiate(unitToSpawn, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

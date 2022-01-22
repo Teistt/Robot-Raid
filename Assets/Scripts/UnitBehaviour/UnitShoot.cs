@@ -12,16 +12,27 @@ public class UnitShoot : MonoBehaviour
     private float fireCtdw = 0f; //cooldown
 
     private bool facingRight = true;
+    private bool _isMoving=false;
 
-    private Collider2D[] col;
-    //private List<Collider2D> en = new List<Collider2D>();
+
     [SerializeField] private GameObject targetEnemy;
 
-    private ObjectPool<GameObject> BulletPool;
+    private Animator anim;
+
+    private void OnEnable()
+    {
+        UnitMovement.OnMoving += OnUnitMoving;
+    }
+
+    private void OnDisable()
+    {
+        UnitMovement.OnMoving -= OnUnitMoving;
+    }
 
     private void Awake()
     {
-        //BulletPool = new ObjectPool<GameObject>(CreatePooledObject, OnTakeFromPool, OnReturnToPool, OnDestroyObject, true, 20, 100);
+
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -30,15 +41,24 @@ public class UnitShoot : MonoBehaviour
         InvokeRepeating("FindNearestEnemy", 0f, 0.5f);
     }
 
+    void OnUnitMoving(bool i)
+    {
+        _isMoving = i;
+    }
+
     void FixedUpdate()
     {
-        AttackNearestEnemy();
+        if (_isMoving)
+        {
+            return;
+        }
 
         if (targetEnemy == null)
         {
             return;
         }
 
+        AttackNearestEnemy();
         LookSide();
     }
 
@@ -80,23 +100,14 @@ public class UnitShoot : MonoBehaviour
 
     private void AttackNearestEnemy()
     {
-        if (targetEnemy == null)
-        {
-            return;
-        }
-
-
         if (fireCtdw <= 0f)
         {
-            //On tire
-            //BulletPool.Get();
-
-            //float rot_z = Mathf.Atan2( targetEnemy.transform.position.y- transform.position.y ,  targetEnemy.transform.position.x- transform.position.x);
-
             Vector3 diff = targetEnemy.transform.position - transform.position;
             diff.Normalize();
             float rot_z = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
 
+            anim.SetTrigger("_isFire");
+            
             Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, rot_z));
             fireCtdw = 1 / fireRate;
             //firerate correspond à nb coup/s; donc le cooldown est l'inverse
@@ -104,19 +115,6 @@ public class UnitShoot : MonoBehaviour
         }
 
         fireCtdw -= Time.deltaTime;
-    }
-
-
-    void PooledShoot(GameObject bulletGO)
-    {
-        //On instantie la boullette a la position firePoint
-        bulletGO.transform.position = firePoint.position;
-        //bulletGO.transform.rotation = transform.rotation;
-        float rot_z = Mathf.Atan2(transform.position.y-targetEnemy.transform.position.y, transform.position.x - targetEnemy.transform.position.x);
-        rot_z = rot_z * Mathf.Rad2Deg;
-
-
-        bulletGO.transform.rotation = Quaternion.Euler(0, 0, rot_z);
     }
 
     private void OnDrawGizmos()

@@ -9,13 +9,30 @@ public class EnemyAttack : MonoBehaviour
 
     private bool isAttacking = false;
 
+    private Animator anim;
 
     private GameObject targetUnit;
     private UnitLife unitLife;
 
-    void Start()
+
+    private void OnEnable()
     {
-        
+        GameManager.OnGameOver += OnGameOver;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameOver -= OnGameOver;
+    }
+
+    void OnGameOver()
+    {
+        this.enabled = false;
+    }
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
     }
 
 
@@ -50,11 +67,14 @@ public class EnemyAttack : MonoBehaviour
     public void SetAttack(GameObject target)
     {
         isAttacking = true;
+        anim.SetBool("_isAttak", true);
         targetUnit = target;
         unitLife = targetUnit.GetComponent<UnitLife>();
     }
+
     public void StopAttack()
     {
         isAttacking = false;
+        anim.SetBool("_isAttak", false);
     }
 }
