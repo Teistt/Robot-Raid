@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private int enemiesSpawning=1;
     private int enemiesUnlocked=1;
 
-    
+    [SerializeField] private bool _isDebugNoSpawn=false;
 
     private int waveCounter = 0;
     private int availableTokens = 0;
@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (_isDebugNoSpawn)
+        {
+            return;
+        }
         if (spawnerCtdw <= 0f)
         {
             waveCounter++;

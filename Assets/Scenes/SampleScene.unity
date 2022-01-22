@@ -2078,8 +2078,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score:\n1234567891011
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5536560d84515c443a367d88ad492334, type: 2}
+  m_sharedMaterial: {fileID: -7486340738962764642, guid: 5536560d84515c443a367d88ad492334, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2103,8 +2103,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2527,6 +2527,7 @@ MonoBehaviour:
   unitsList: []
   score: 0
   probability: 50
+  _isDebugNoSpawn: 1
   spawnerTimer: 10
   gameScene:
     serializedVersion: 2
@@ -2792,8 +2793,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Time:\n1234567891011 min
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5536560d84515c443a367d88ad492334, type: 2}
+  m_sharedMaterial: {fileID: -7486340738962764642, guid: 5536560d84515c443a367d88ad492334, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2817,8 +2818,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7835,11 +7836,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5166840985047464494, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.19
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 5166840985047464494, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.62
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: 5166840985047464494, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
       propertyPath: m_LocalPosition.z
