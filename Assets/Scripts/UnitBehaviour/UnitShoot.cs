@@ -8,7 +8,6 @@ public class UnitShoot : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float shootRange=1f;
     [SerializeField] private float fireRate = 1f;
-    [SerializeField] private int damage = 1;
     private float fireCtdw = 0f; //cooldown
 
     private bool facingRight = true;
@@ -31,7 +30,6 @@ public class UnitShoot : MonoBehaviour
 
     private void Awake()
     {
-
         anim = GetComponent<Animator>();
     }
 
@@ -48,18 +46,27 @@ public class UnitShoot : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_isMoving)
+        if (fireCtdw <= 0f)
         {
-            return;
+            if (_isMoving)
+            {
+                return;
+            }
+
+            if (targetEnemy == null)
+            {
+                return;
+            }
+
+            AttackNearestEnemy();
+            LookSide();
         }
 
-        if (targetEnemy == null)
+        else
         {
-            return;
+            fireCtdw -= Time.deltaTime;
         }
 
-        AttackNearestEnemy();
-        LookSide();
     }
 
     private void FindNearestEnemy()
@@ -100,21 +107,17 @@ public class UnitShoot : MonoBehaviour
 
     private void AttackNearestEnemy()
     {
-        if (fireCtdw <= 0f)
-        {
-            Vector3 diff = targetEnemy.transform.position - transform.position;
-            diff.Normalize();
-            float rot_z = Mathf.Atan2(diff.y,diff.x) * Mathf.Rad2Deg;
 
-            anim.SetTrigger("_isFire");
-            
-            Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, rot_z));
-            fireCtdw = 1 / fireRate;
-            //firerate correspond à nb coup/s; donc le cooldown est l'inverse
-            //aka fireRate=2 donc fireCtdw=1/2=.5s
-        }
+        Vector3 diff = targetEnemy.transform.position - transform.position;
+        diff.Normalize();
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 
-        fireCtdw -= Time.deltaTime;
+        anim.SetTrigger("_isFire");
+
+        Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, rot_z));
+        fireCtdw = 1 / fireRate;
+        //firerate correspond à nb coup/s; donc le cooldown est l'inverse
+        //aka fireRate=2 donc fireCtdw=1/2=.5s
     }
 
     private void OnDrawGizmos()

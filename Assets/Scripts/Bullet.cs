@@ -68,16 +68,30 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Unit")
+        if(collision.gameObject.tag != "Enemy")
         {
             return;
         }
 
-        if (collision.gameObject.tag == "Enemy")
+        else
         {
-            collision.GetComponent<EnemyLife>().GetHit(damage);
-            Vector3 knockback =  collision.transform.position-rb.transform.position ;
-            collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
+            if (explosionRadius <= 0)
+            {
+                collision.GetComponent<EnemyLife>().GetHit(damage);
+                Vector3 knockback = collision.transform.position - rb.transform.position;
+                collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
+            }
+            else
+            {
+                LayerMask mask = LayerMask.GetMask("Enemy");
+                Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, explosionRadius, mask);
+                foreach (var item in en)
+                {
+                    item.GetComponent<EnemyLife>().GetHit(damage);
+                    Vector3 knockback = item.transform.position - rb.transform.position;
+                    item.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
+                }
+            }
         }
         
         OnEnd();

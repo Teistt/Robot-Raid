@@ -34,21 +34,6 @@ public class UnitMovement : MonoBehaviour
         //If we are not arrived at destiantion
         if (Vector3.Distance(transform.position, walkDestination) >= walkTargetPrecision)
         {
-            /*
-            //If the actual position is the same as the previous one, our unit is blocked by another rigidbody so we say his arrived to destination
-            //That way he can start shooting
-            if (isMoving && transform.position == prevPosition)
-            {
-                rb.velocity = new Vector2(0, 0);
-                walkDestination = transform.position;
-                isMoving = false;
-                anim.SetBool("_isMoving", isMoving);
-                OnMoving?.Invoke(isMoving);
-                return;
-            }
-            */
-
-
             //Recalculate the vector toward the destination
             //And normalized it in order to have constant speed
             actualDir = walkDestination - transform.position;
