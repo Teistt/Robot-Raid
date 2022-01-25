@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ced97cae9267d4ebda0a7fe7b1397b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 4
+  maxLife: 4
   deadSprite: {fileID: 8790480526523020917, guid: 7d534ea9044db5340a98ec8eb664a97f, type: 3}
   hitVFX: {fileID: 1652029882642523393, guid: 2dc08c4410d6fc546a0cd3788c254f51, type: 3}
 --- !u!114 &6824939434686954990
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 4.5
-  walkTargetPrecision: 0.3
+  walkTargetPrecision: 0.2
 --- !u!114 &6824939434686954991
 MonoBehaviour:
   m_ObjectHideFlags: 0

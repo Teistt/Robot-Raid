@@ -25,7 +25,6 @@ public class UnitLife : MonoBehaviour
 
     public void GetHeal(int amount)
     {
-        Debug.Log("heal! " + amount);
         if (life < maxLife)
         {
             //Instantiate(healVFX, transform);

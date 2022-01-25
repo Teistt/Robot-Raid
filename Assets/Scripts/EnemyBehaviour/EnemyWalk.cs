@@ -11,6 +11,7 @@ public class EnemyWalk : MonoBehaviour
     private bool facingRight = true;
     private GameObject targetUnit;
     private EnemyAttack attackScript;
+    private bool _isBlocked = false;
 
 
     private void OnEnable()
@@ -52,6 +53,10 @@ public class EnemyWalk : MonoBehaviour
         }
 
         LookSide();
+        if (_isBlocked)
+        {
+            return;
+        }
         WalkTarget();
     }
 
@@ -106,5 +111,57 @@ public class EnemyWalk : MonoBehaviour
             rb.velocity = new Vector2(0, 0);
             attackScript.SetAttack(targetUnit);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log("enemy " + gameObject.name + " entered collision");
+        if (collision.gameObject.layer == 7)
+        {
+            _isBlocked = true;
+            Vector3 t = transform.position - collision.transform.position;
+            MinMax(t.x);
+            MinMax(t.y);
+            if (t.x == 0) t.x = 1f;
+            if (t.y == 0) t.y = 1f;
+            rb.velocity = t * walkSpeed;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger=false;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //Debug.Log("enemy " + gameObject.name + " still on collision");
+        if (collision.gameObject.layer == 7)
+        {
+            Vector3 t = transform.position - collision.transform.position;
+            MinMax(t.x);
+            MinMax(t.y);
+            if (t.x == 0) t.x = 1f;
+            if (t.y == 0) t.y = 1f;
+            rb.velocity = t * walkSpeed;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            _isBlocked = false;
+        }
+    }
+
+    float MinMax(float input, float min=1, float max=1)
+    {
+        if (input == 0) return 0f;
+        if (input > 0) return max;
+        else return min;
     }
 }

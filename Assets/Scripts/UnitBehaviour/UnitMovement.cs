@@ -8,8 +8,6 @@ public class UnitMovement : MonoBehaviour
     private Vector3 walkDestination;
     private Vector3 actualDir;
 
-    //If unit is blocked by another collider
-    private Vector3 prevPosition;
     private Rigidbody2D rb;
     private bool isMoving=false;
 
@@ -24,7 +22,6 @@ public class UnitMovement : MonoBehaviour
 
         rb.gravityScale = 0f;
         walkDestination = transform.position;
-        prevPosition = transform.position;
     }
 
     void FixedUpdate()
@@ -41,9 +38,6 @@ public class UnitMovement : MonoBehaviour
             actualDir.y = Mathf.Clamp(actualDir.y, -1f, 1f);
 
             rb.velocity = actualDir * walkSpeed;
-
-            //register new position for next fixed update
-            prevPosition = transform.position;
         }
 
         //If we are arrived, we don't need to move

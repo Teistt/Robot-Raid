@@ -39,6 +39,8 @@ public class EnemyLife : MonoBehaviour
 
     void Die()
     {
+        GetComponent<EnemyAttack>().enabled = false;
+        GetComponent<Rigidbody2D>().isKinematic = false;
         OnEnemyDie?.Invoke(transform.position, reward);
         if (deadSprite != null)
         {

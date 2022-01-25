@@ -11,11 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] pickUps;
 
     [SerializeField] private List<GameObject> unitsList;
-    //private List<GameObject> enemiesList;
     private int enemiesCount =0;
     public int score=0;
     [SerializeField] private int probability=50;
-    private int enemiesSpawning=1;
     private int enemiesUnlocked=1;
 
     [SerializeField] private bool _isDebugNoSpawn=false;
@@ -24,9 +22,9 @@ public class GameManager : MonoBehaviour
     private int availableTokens = 0;
     [SerializeField] private float spawnerTimer = 10f;
     private float spawnerCtdw = 0f;
-
     private Vector3 spawnPos;
     [SerializeField] private Rect gameScene;
+    [SerializeField] private Rect outGameScene;
 
     public static event Action OnGameOver;
 
@@ -55,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        DetermineSpawn();
+        spawnerCtdw = spawnerTimer;
         Spawner();
     }
 
@@ -69,19 +67,11 @@ public class GameManager : MonoBehaviour
         if (spawnerCtdw <= 0f || enemiesCount==0)
         {
             Spawner();
-            /*
-            for (int i = 0; i < enemiesSpawning; i++)
-            {
-                DetermineSpawn();
-                Instantiate(robotsPrefab[Random.Range(0, enemiesUnlocked)], spawnPos, Quaternion.identity);
-                enemiesCount++;
-            }*/
 
             spawnerCtdw = spawnerTimer;
         }
-        //Debug.Log(spawnerCtdw);
-        spawnerCtdw -= Time.deltaTime;
 
+        spawnerCtdw -= Time.deltaTime;
     }
 
     void Spawner()
@@ -123,7 +113,7 @@ public class GameManager : MonoBehaviour
                 case 5:
                     indexToSpawn = 3;
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
@@ -131,7 +121,7 @@ public class GameManager : MonoBehaviour
                 case 4:
                     indexToSpawn = 2;
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
@@ -139,7 +129,7 @@ public class GameManager : MonoBehaviour
                 case 3:
                     indexToSpawn = 0;
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
@@ -147,7 +137,7 @@ public class GameManager : MonoBehaviour
                 case 2:
                     indexToSpawn = 1;
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
@@ -155,7 +145,7 @@ public class GameManager : MonoBehaviour
                 case 1:
                     indexToSpawn = 0;
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
@@ -163,20 +153,23 @@ public class GameManager : MonoBehaviour
                 default:
                     indexToSpawn = Random.Range(0, enemiesUnlocked);
                     availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawn();
+                    DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
                     enemiesCount++;
                     break;
             }
-
-            //Debug.Log("enemies count " + enemiesCount);
         }
     }
 
-    void DetermineSpawn()
+    void DetermineSpawnPoint()
     {
-        //Improvement: recuperer positions de toutes les unités (avec la list) surla map pour ne pas faire spawn les enemis trops proches
-        spawnPos = new Vector3(Random.Range(gameScene.xMin, gameScene.xMax), Random.Range(gameScene.yMin, gameScene.yMax));
+        //Determine random x and y between min X coordinate and min Y coordinate of inner and outter games rects
+        spawnPos.x = Random.Range(outGameScene.xMin, gameScene.xMin);
+        spawnPos.y = Random.Range(outGameScene.yMin, gameScene.yMin);
+
+        //50% chance of negate coordinate sign
+        if (Random.Range(0, 10) >= 5) spawnPos.x = -spawnPos.x;
+        if (Random.Range(0, 10) >= 5) spawnPos.y = -spawnPos.y;
     }
 
     private void OnEnable()
@@ -235,5 +228,7 @@ public class GameManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(gameScene.center, gameScene.size);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(outGameScene.center, outGameScene.size);
     }
 }
