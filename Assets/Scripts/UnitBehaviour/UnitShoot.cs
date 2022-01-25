@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class UnitShoot : MonoBehaviour
 {
@@ -14,10 +12,11 @@ public class UnitShoot : MonoBehaviour
     private bool _isMoving=false;
 
 
-    [SerializeField] private GameObject targetEnemy;
+    //[SerializeField] private GameObject targetEnemy;
 
     private Animator anim;
 
+    #region Actions
     private void OnEnable()
     {
         UnitMovement.OnMoving += OnUnitMoving;
@@ -27,25 +26,25 @@ public class UnitShoot : MonoBehaviour
     {
         UnitMovement.OnMoving -= OnUnitMoving;
     }
-
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
-        //Permet de lancer la fonction UpdateTarget toutes les 0.5s à partir de 0s
-        InvokeRepeating("FindNearestEnemy", 0f, 0.5f);
-    }
+    #endregion
 
     void OnUnitMoving(bool i)
     {
         _isMoving = i;
     }
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+
     void FixedUpdate()
     {
+        //If the cooldown is reached, whe checked if we are moving
+        //If not, we can fire nearest enemy around us
+
+        //This way, fireCtw is updated even if we are moving
         if (fireCtdw <= 0f)
         {
             if (_isMoving)
@@ -53,50 +52,72 @@ public class UnitShoot : MonoBehaviour
                 return;
             }
 
+            //We check for the nearest enemy; stored in targetEnemy
+            Transform targetEnemy=FindNearestEnemy();
+
+            //If there is no enemy, we return
             if (targetEnemy == null)
             {
                 return;
             }
 
-            AttackNearestEnemy();
-            LookSide();
+            //We check to look at targetEnemy
+            LookHorSide(targetEnemy.position);
+
+            //We attack targetEnemy
+            AttackEnemy(targetEnemy.position);
+
+            fireCtdw = 1 / fireRate;
+            //firerate correspond à nb coup/s; donc le cooldown est l'inverse
+            //aka fireRate=2 donc fireCtdw=1/2=.5s
         }
 
         else
         {
+            //If countdown not finished, we update it since the last frame time
             fireCtdw -= Time.deltaTime;
         }
 
     }
 
-    private void FindNearestEnemy()
+    private Transform FindNearestEnemy()
     {
+        float nearDist = 1000f;
+
+        //Physic raycast to get all GO with "Enemy" mask and in radius shootRange in en Collider2D array
         LayerMask mask = LayerMask.GetMask("Enemy");
         Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, shootRange, mask);
+        Collider2D nearestEn = null;
 
-        float nearDist = 1000f;
         if (en.Length == 0)
         {
-            targetEnemy = null;
+            return null;
         }
         else
         {
-            foreach (var item in en)
+            foreach (Collider2D item in en)
             {
+                //For each detected enemy, we check if its the closer
+                //If so, we register is current distance in order to compare with remaining enemies
                 float actDistance = Vector2.Distance(item.gameObject.transform.position, transform.position);
+
                 if (actDistance <= nearDist)
                 {
                     nearDist = actDistance;
-                    targetEnemy = item.gameObject;
+                    nearestEn = item;
                 }
             }
+
+            return nearestEn.transform;
         }
     }
 
 
-    void LookSide()
+    void LookHorSide(Vector3 targetEnemy)
     {
-        float horizontalValue = transform.position.x - targetEnemy.transform.position.x;
+        //check if targetted enemy is at our right or left
+        float horizontalValue = transform.position.x - targetEnemy.x;
+        //If we are not facing it, we turn unit around
         if (horizontalValue < 0 && !facingRight || horizontalValue > 0 && facingRight)
         {
             facingRight = !facingRight;
@@ -105,19 +126,18 @@ public class UnitShoot : MonoBehaviour
     }
 
 
-    private void AttackNearestEnemy()
+    private void AttackEnemy(Vector3 target)
     {
-
-        Vector3 diff = targetEnemy.transform.position - transform.position;
+        //Calcul of Vector's angle between firepoint's unit and enemy
+        Vector3 diff = target - firePoint.transform.position;
         diff.Normalize();
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-
+        
+        //Set Unit's Fire animation
         anim.SetTrigger("_isFire");
 
+        //Instantiate bullet at firepoint position and calculated angle
         Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, rot_z));
-        fireCtdw = 1 / fireRate;
-        //firerate correspond à nb coup/s; donc le cooldown est l'inverse
-        //aka fireRate=2 donc fireCtdw=1/2=.5s
     }
 
     private void OnDrawGizmos()

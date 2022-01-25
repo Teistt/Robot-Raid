@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyWalk : MonoBehaviour
 {
@@ -133,6 +134,9 @@ public class EnemyWalk : MonoBehaviour
         if (collision.gameObject.layer == 7)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger=false;
+            gameObject.GetComponent<NavMeshAgent>().enabled = true;
+            gameObject.GetComponent<EnemyNavMesh>().enabled = true;
+            this.enabled = false;
         }
     }
 

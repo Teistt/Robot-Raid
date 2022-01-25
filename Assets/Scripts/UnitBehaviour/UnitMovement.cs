@@ -51,6 +51,8 @@ public class UnitMovement : MonoBehaviour
             {
                 isMoving = false;
                 anim.SetBool("_isMoving", isMoving);
+
+                //Launch isMoving Action for UnitShoot and MedicHeal classes to start firing/healing
                 OnMoving?.Invoke(isMoving);
             }
         }
@@ -58,15 +60,22 @@ public class UnitMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //If the unit collide with an obstacle, we say his arrived at destination
+        //That way we prevent it from getting stucked by obstacle
         if (collision.gameObject.layer == 7)
         {
             walkDestination = transform.position;
         }
     }
+
     public void SetDestination(Vector3 destination)
     {
+        //When the player set destination for selected units the Mouse Manager Class
+        //call each selected unit's SetDestination Method
         walkDestination = destination;
         isMoving = true;
+        //We set unit's movement animation and we launch the isMoving Action for UnitShoot and MedicHeal classes
+        //That way, these classes stop firing or heal
         anim.SetBool("_isMoving", isMoving);
         OnMoving?.Invoke(isMoving);
     }

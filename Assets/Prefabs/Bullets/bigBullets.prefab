@@ -124,7 +124,7 @@ MonoBehaviour:
   damage: 3
   propulsionForce: 7500
   explosionRadius: 0.7
-  knockbackForce: 1500
+  knockbackForce: 5
 --- !u!50 &7291519277895552228
 Rigidbody2D:
   serializedVersion: 4

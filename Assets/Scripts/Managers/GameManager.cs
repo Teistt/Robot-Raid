@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         spawnerCtdw = spawnerTimer;
+
+        if (_isDebugNoSpawn)
+        {
+            return;
+        }
         Spawner();
     }
 

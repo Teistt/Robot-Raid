@@ -30,31 +30,6 @@ public class Bullet : MonoBehaviour
         rb.AddForce(xy*propulsionForce,ForceMode2D.Impulse);
     }
 
-
-    void OnEnable()
-    {
-    }
-
-    void FixedUpdate()
-    {
-
-    }
-
-    void Explode()
-    {
-        /*
-
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.tag == "Enemy")
-            {
-                Damage(collider.transform);
-            }
-        }*/
-    }
-
     private void OnEnd()
     {
         Instantiate(impactEffect, transform.position, Quaternion.identity);
@@ -77,9 +52,9 @@ public class Bullet : MonoBehaviour
         {
             if (explosionRadius <= 0)
             {
-                collision.GetComponent<EnemyLife>().GetHit(damage);
-                Vector3 knockback = collision.transform.position - rb.transform.position;
-                collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
+                Vector3 knockback = ((collision.transform.position - rb.transform.position).normalized)*knockbackForce;
+                collision.GetComponent<EnemyLife>().GetHit(damage, knockback);
+                //collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
             }
             else
             {
@@ -87,9 +62,9 @@ public class Bullet : MonoBehaviour
                 Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, explosionRadius, mask);
                 foreach (var item in en)
                 {
-                    item.GetComponent<EnemyLife>().GetHit(damage);
-                    Vector3 knockback = item.transform.position - rb.transform.position;
-                    item.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
+
+                    Vector3 knockback = ((item.transform.position - rb.transform.position).normalized) * knockbackForce;
+                    item.GetComponent<EnemyLife>().GetHit(damage, knockback);
                 }
             }
         }

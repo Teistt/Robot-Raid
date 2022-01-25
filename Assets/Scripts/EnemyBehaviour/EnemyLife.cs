@@ -6,12 +6,12 @@ public class EnemyLife : MonoBehaviour
     [SerializeField] private int life = 4;
     [SerializeField] private int reward = 10;
     [SerializeField] private GameObject deadSprite;
-    //public int enemyCost;
+    private EnemyNavMesh enemyNavigation;
 
 
     public static event Action<Vector3,int> OnEnemyDie;
 
-
+    #region Actions
     private void OnEnable()
     {
         GameManager.OnGameOver += OnGameOver;
@@ -26,10 +26,17 @@ public class EnemyLife : MonoBehaviour
     {
         this.enabled = false;
     }
+    #endregion
 
-    public void GetHit(int damage)
+    private void Awake()
+    {
+        enemyNavigation = GetComponent<EnemyNavMesh>();
+    }
+
+    public void GetHit(int damage,Vector3 knockback)
     {
         life -= damage;
+        enemyNavigation.Knocked(knockback);
 
         if (life <= 0)
         {
