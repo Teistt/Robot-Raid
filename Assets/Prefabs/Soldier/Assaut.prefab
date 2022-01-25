@@ -114,7 +114,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 432367853, guid: 46358adb7985fe241ab1620a78d5c495, type: 3}
+  m_Sprite: {fileID: 1279409971, guid: 8879bb1757f87c647bed2ea098132723, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -135,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 5166840985047464496}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50bdf0ae6d6d1334a843b15f6d9495d4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b50524c87fd32041a608a0fe90014fe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 4
-  deadSprite: {fileID: 5548173826960768374, guid: ae375270759f4f94a874f17cd70012b3, type: 3}
+  deadSprite: {fileID: 8790480526523020917, guid: 7d534ea9044db5340a98ec8eb664a97f, type: 3}
   hitVFX: {fileID: 1652029882642523393, guid: 2dc08c4410d6fc546a0cd3788c254f51, type: 3}
 --- !u!114 &552801142
 MonoBehaviour:
@@ -217,7 +217,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8741956489778069309, guid: aedd7ed521a1afb4b9f8c407f401becf, type: 3}
   shootRange: 7
   fireRate: 1
-  targetEnemy: {fileID: 0}
 --- !u!61 &552801140
 BoxCollider2D:
   m_ObjectHideFlags: 0
