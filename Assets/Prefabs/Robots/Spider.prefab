@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6353077423217331012}
   - component: {fileID: 6353077423217331010}
   - component: {fileID: 1684103416810128526}
-  - component: {fileID: 3907038319989613634}
+  - component: {fileID: -222096933117517371}
   m_Layer: 6
   m_Name: Spider
   m_TagString: Enemy
@@ -185,9 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a518fefda62334d8ba483503feec62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
   damage: 2
-  fireRate: 1
+  attackSpeed: 1
+  knockbackForce: 15
 --- !u!195 &1684103416810128526
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ NavMeshAgent:
   m_BaseOffset: 0.49
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3907038319989613634
+--- !u!114 &-222096933117517371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,7 +219,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6353077423217331018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d585d357cc965514781317365e56956e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9846ae07605e41e48a8f04e3adeeb5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1
+  walkSpeed: 3
+  slowRate: 0.5
+  slowedTime: 2
+  obstacleLayerID: 7
+  unitLayerName: Unit
+  enemyLayerID: 6

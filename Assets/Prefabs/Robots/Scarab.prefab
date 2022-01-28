@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 4007985105862301838}
   - component: {fileID: 8692967905087965531}
   - component: {fileID: 6105488812138479944}
-  - component: {fileID: 6831246532222391757}
   - component: {fileID: 6758599944121755345}
+  - component: {fileID: -3901549551215028818}
   m_Layer: 6
   m_Name: Scarab
   m_TagString: Enemy
@@ -170,9 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a518fefda62334d8ba483503feec62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
   damage: 1
-  fireRate: 1
+  attackSpeed: 1
+  knockbackForce: 15
 --- !u!114 &6105488812138479944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,19 +188,6 @@ MonoBehaviour:
   life: 2
   reward: 5
   deadSprite: {fileID: 7934077357684598878, guid: 9537963dfac223741953e5c5f9abe6bb, type: 3}
---- !u!114 &6831246532222391757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8142656157520608100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d585d357cc965514781317365e56956e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 1.5
 --- !u!195 &6758599944121755345
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -223,3 +210,21 @@ NavMeshAgent:
   m_BaseOffset: 0.4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-3901549551215028818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8142656157520608100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9846ae07605e41e48a8f04e3adeeb5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  slowRate: 0.5
+  slowedTime: 2
+  obstacleLayerID: 7
+  unitLayerName: Unit
+  enemyLayerID: 6

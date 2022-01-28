@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MedicHeal : MonoBehaviour
 {
+
+    private int unitLayerID = 3;
+
     //Heal rate, .25 means 1 heal every 4 seconds
     [SerializeField] private float healRate = .25f;
     [SerializeField] private int healAmount=1;
@@ -15,12 +18,12 @@ public class MedicHeal : MonoBehaviour
     #region Actions
     private void OnEnable()
     {
-        UnitMovement.OnMoving += OnUnitMoving;
+        UnitNavMeshMovement.OnMoving += OnUnitMoving;
     }
 
     private void OnDisable()
     {
-        UnitMovement.OnMoving -= OnUnitMoving;
+        UnitNavMeshMovement.OnMoving -= OnUnitMoving;
     }
     #endregion
 
@@ -67,13 +70,20 @@ public class MedicHeal : MonoBehaviour
 
     void HealUnit()
     {
+        Debug.Log("heal");
         //Physic raycast to get all GO with "Unit" mask and in radius healRadius in en Collider2D array
-        LayerMask mask = LayerMask.GetMask("Unit");
+
+        LayerMask mask = LayerMask.GetMask(LayerMask.LayerToName(unitLayerID));
         Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, healRadius, mask);
+        if (en.Length == 0)
+        {
+            return;
+        }
         foreach (var item in en)
         {
+            Debug.Log(item);
             //GetHeal() Method of each unit's inside the healRadius is called
-            item.GetComponent<UnitLife>().GetHeal(healAmount);
+            item.gameObject.GetComponent<UnitLife>().GetHeal(healAmount);
         }
     }
 

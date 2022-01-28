@@ -11,6 +11,9 @@ public class MouseManager : MonoBehaviour
     private Vector3 _dragStartPosition;
     private Vector3 targetMovePosition;
 
+    [SerializeField] private float deltaX = 0.6f;
+    [SerializeField] private float deltaY = 0.6f;
+
     private void Awake()
     {
         if(Instance!=null && Instance != this)
@@ -49,9 +52,30 @@ public class MouseManager : MonoBehaviour
             targetMovePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Position returned is based on camera height
             targetMovePosition.z -= Camera.main.transform.position.z;
-            foreach (var unit in SELECTED_UNITS)
+
+            if (SELECTED_UNITS.Count == 1)
             {
-                unit.gameObject.GetComponent<UnitMovement>().SetDestination(targetMovePosition);
+                SELECTED_UNITS[0].gameObject.GetComponent<UnitNavMeshMovement>().SetDestination(targetMovePosition);
+            }
+            else
+            {
+                Vector3 gridPos;
+                int countX = 0;
+                int countY = 0;
+                int squadSizeXMax = (int) Mathf.Sqrt((float)SELECTED_UNITS.Count);
+
+                foreach (var unit in SELECTED_UNITS)
+                {
+                    gridPos = targetMovePosition+ new Vector3(countX* deltaX, countY* deltaY, 0);
+                    unit.gameObject.GetComponent<UnitNavMeshMovement>().SetDestination(gridPos);
+                    countX++;
+
+                    if (countX >= squadSizeXMax)
+                    {
+                        countX = 0;
+                        countY++;
+                    }
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ public class UnitLife : MonoBehaviour
     private int life;
     [SerializeField] private GameObject deadSprite;
     [SerializeField] private GameObject hitVFX;
+    private UnitNavMeshMovement unitNavigation;
 
 
     private Animator anim;
@@ -20,6 +21,7 @@ public class UnitLife : MonoBehaviour
         life = maxLife;
         OnUnitSpawn?.Invoke(gameObject);
         anim = GetComponent<Animator>();
+        unitNavigation = GetComponent<UnitNavMeshMovement>();
     }
 
 
@@ -32,11 +34,12 @@ public class UnitLife : MonoBehaviour
         }
     }
 
-    public void GetHit(int damage)
+    public void GetHit(int damage, Vector3 knockback)
     {
         Instantiate(hitVFX, transform);
         life -= damage;
-        
+        unitNavigation.Knocked(knockback);
+
         if (life <= 0)
         {
             Die();

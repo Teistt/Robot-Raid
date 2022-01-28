@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private float attackSpeed=1f;
+    //[SerializeField] private float attackSpeed=1f;
     [SerializeField] private int damage=1;
-    [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float attackSpeed = 1f;
+    [SerializeField] private float knockbackForce = 1000f;
     private float fireCtdw = 0f; //cooldown
 
     private bool isAttacking = false;
@@ -55,8 +56,9 @@ public class EnemyAttack : MonoBehaviour
 
         if (fireCtdw <= 0f)
         {
-            unitLife.GetHit(damage);
-            fireCtdw = 1 / fireRate;
+            Vector3 knockback = ((unitLife.transform.position - transform.position).normalized) * knockbackForce;
+            unitLife.GetHit(damage,knockback);
+            fireCtdw = 1 / attackSpeed;
             //firerate correspond à nb coup/s; donc le cooldown est l'inverse
             //aka fireRate=2 donc fireCtdw=1/2=.5s
         }

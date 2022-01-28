@@ -1,11 +1,18 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyNavMesh : MonoBehaviour
 {
-    private NavMeshAgent agent;
 
     [SerializeField] private float walkSpeed = 3f;
+    [SerializeField] private float slowRate = .5f;
+    [SerializeField] private float slowedTime = 2f;
+    [SerializeField] private int obstacleLayerID=7;
+    [SerializeField] private string unitLayerName = "Unit";
+    [SerializeField] private int enemyLayerID = 6;
+    //[SerializeField] private int unitLayerID = 3;
+
     private float detectionRange = 19f;
     private bool facingRight = true;
     private float attackRange = 1f;
@@ -15,12 +22,9 @@ public class EnemyNavMesh : MonoBehaviour
     private GameObject targetUnit;
     private EnemyAttack attackScript;
     private Rigidbody2D rb;
+    private NavMeshAgent agent;
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-    }
+    LayerMask mask;
 
     #region Actions
     private void OnEnable()
@@ -44,13 +48,14 @@ public class EnemyNavMesh : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 7)
+        if (collision.gameObject.layer == obstacleLayerID)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
             rb.velocity = new Vector2(0, 0);
             rb.isKinematic = true;
             _isNavMesh = true;
+            gameObject.layer =enemyLayerID;
         }
     }
 
@@ -61,6 +66,9 @@ public class EnemyNavMesh : MonoBehaviour
 
         attackScript = gameObject.GetComponent<EnemyAttack>();
         agent = GetComponent<NavMeshAgent>();
+        //initVelocity = agent.velocity;
+        agent.speed = walkSpeed;
+        mask = LayerMask.GetMask(unitLayerName);
     }
 
 
@@ -68,14 +76,9 @@ public class EnemyNavMesh : MonoBehaviour
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-
-        //FindNearestUnit();
-        //Permet de lancer la fonction FindNearestUnit toutes les 0.2s à partir de 0s
-        //Game at 30fps so every 6 frames
-        //InvokeRepeating("FindNearestUnit", 0f, 0.2f);
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         FindNearestUnit();
@@ -118,17 +121,10 @@ public class EnemyNavMesh : MonoBehaviour
         LookSide();
     }
 
-    public void Knocked(Vector3 knockback)
-    {
-        _isKnockdBack = true;
-        agent.enabled = false;
-        rb.isKinematic = false;
-        rb.AddForce(knockback, ForceMode2D.Impulse);
-    }
 
     void FindNearestUnit()
     {
-        LayerMask mask = LayerMask.GetMask("Unit");
+
         Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, detectionRange, mask);
 
         float nearDist = 1000f;
@@ -181,10 +177,34 @@ public class EnemyNavMesh : MonoBehaviour
 
     void WalkTarget()
     {
+        if (targetUnit == null)
+        {
+            FindNearestUnit();
+        }
+
         Vector3 actualDir = targetUnit.transform.position - transform.position;
         actualDir.x = Mathf.Clamp(actualDir.x, -1f, 1f);
         actualDir.y = Mathf.Clamp(actualDir.y, -1f, 1f);
 
         rb.velocity = actualDir * walkSpeed;
+    }
+
+    public void SetSlow()
+    {
+        agent.speed= walkSpeed * slowRate;
+        StartCoroutine(SlowMo());
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+
+    IEnumerator SlowMo()
+    {
+        yield return new WaitForSeconds(slowedTime);
+
+        agent.speed = walkSpeed;
     }
 }

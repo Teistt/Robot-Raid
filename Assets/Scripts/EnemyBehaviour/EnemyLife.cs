@@ -6,8 +6,7 @@ public class EnemyLife : MonoBehaviour
     [SerializeField] private int life = 4;
     [SerializeField] private int reward = 10;
     [SerializeField] private GameObject deadSprite;
-    private EnemyNavMesh enemyNavigation;
-
+    private EnemyNavMesh enemyNav;
 
     public static event Action<Vector3,int> OnEnemyDie;
 
@@ -30,13 +29,13 @@ public class EnemyLife : MonoBehaviour
 
     private void Awake()
     {
-        enemyNavigation = GetComponent<EnemyNavMesh>();
+        enemyNav = GetComponent<EnemyNavMesh>();
     }
 
-    public void GetHit(int damage,Vector3 knockback)
+    public void GetHit(int damage)
     {
         life -= damage;
-        enemyNavigation.Knocked(knockback);
+        enemyNav.SetSlow();
 
         if (life <= 0)
         {

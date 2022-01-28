@@ -6,12 +6,13 @@ public class UnitShoot : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float shootRange=1f;
     [SerializeField] private float fireRate = 1f;
+    [SerializeField] private string enemyLayerName = "Enemy";
     private float fireCtdw = 0f; //cooldown
 
     private bool facingRight = true;
     private bool _isMoving=false;
 
-
+    LayerMask mask;
     //[SerializeField] private GameObject targetEnemy;
 
     private Animator anim;
@@ -19,12 +20,12 @@ public class UnitShoot : MonoBehaviour
     #region Actions
     private void OnEnable()
     {
-        UnitMovement.OnMoving += OnUnitMoving;
+        UnitNavMeshMovement.OnMoving += OnUnitMoving;
     }
 
     private void OnDisable()
     {
-        UnitMovement.OnMoving -= OnUnitMoving;
+        UnitNavMeshMovement.OnMoving -= OnUnitMoving;
     }
     #endregion
 
@@ -36,6 +37,7 @@ public class UnitShoot : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        mask = LayerMask.GetMask(enemyLayerName);
     }
 
 
@@ -49,6 +51,7 @@ public class UnitShoot : MonoBehaviour
         {
             if (_isMoving)
             {
+                Debug.Log("cannot shoot");
                 return;
             }
 
@@ -85,7 +88,6 @@ public class UnitShoot : MonoBehaviour
         float nearDist = 1000f;
 
         //Physic raycast to get all GO with "Enemy" mask and in radius shootRange in en Collider2D array
-        LayerMask mask = LayerMask.GetMask("Enemy");
         Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, shootRange, mask);
         Collider2D nearestEn = null;
 

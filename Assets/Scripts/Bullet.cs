@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private float propulsionForce = 50f;
     [SerializeField] private float explosionRadius = 0f;
-    [SerializeField] private float knockbackForce = 1000f;
     
     private Vector3 creationPoint;
     private Rigidbody2D rb;
@@ -52,8 +51,8 @@ public class Bullet : MonoBehaviour
         {
             if (explosionRadius <= 0)
             {
-                Vector3 knockback = ((collision.transform.position - rb.transform.position).normalized)*knockbackForce;
-                collision.GetComponent<EnemyLife>().GetHit(damage, knockback);
+                Vector3 knockback = ((collision.transform.position - rb.transform.position).normalized);
+                collision.GetComponent<EnemyLife>().GetHit(damage);
                 //collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
             }
             else
@@ -63,8 +62,8 @@ public class Bullet : MonoBehaviour
                 foreach (var item in en)
                 {
 
-                    Vector3 knockback = ((item.transform.position - rb.transform.position).normalized) * knockbackForce;
-                    item.GetComponent<EnemyLife>().GetHit(damage, knockback);
+                    Vector3 knockback = ((item.transform.position - rb.transform.position).normalized);
+                    item.GetComponent<EnemyLife>().GetHit(damage);
                 }
             }
         }

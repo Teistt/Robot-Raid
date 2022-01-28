@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8659512238156066464}
   - component: {fileID: 4930753144833650717}
   - component: {fileID: 4493818309730531659}
-  - component: {fileID: 2070445533692623293}
   - component: {fileID: 2070445533692623292}
+  - component: {fileID: 3283505183366383066}
   m_Layer: 6
   m_Name: Wasp
   m_TagString: Enemy
@@ -170,9 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a518fefda62334d8ba483503feec62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSpeed: 1
   damage: 1
-  fireRate: 1
+  attackSpeed: 1
+  knockbackForce: 15
 --- !u!114 &4493818309730531659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,19 +188,6 @@ MonoBehaviour:
   life: 1
   reward: 2
   deadSprite: {fileID: 6050290614075291462, guid: 3b453b11f47bf3040b53e05566170bfb, type: 3}
---- !u!114 &2070445533692623293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585938885627656105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d585d357cc965514781317365e56956e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 2
 --- !u!195 &2070445533692623292
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -223,3 +210,21 @@ NavMeshAgent:
   m_BaseOffset: 0.22
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3283505183366383066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585938885627656105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9846ae07605e41e48a8f04e3adeeb5f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  slowRate: 0.5
+  slowedTime: 2
+  obstacleLayerID: 7
+  unitLayerName: Unit
+  enemyLayerID: 6
