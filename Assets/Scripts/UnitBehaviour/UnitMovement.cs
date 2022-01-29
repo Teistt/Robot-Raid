@@ -20,7 +20,7 @@ public class UnitMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         rb =gameObject.GetComponent<Rigidbody2D>();
 
-        rb.gravityScale = 0f;
+        //rb.gravityScale = 0f;
         walkDestination = transform.position;
     }
 

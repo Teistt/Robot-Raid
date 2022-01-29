@@ -70,7 +70,7 @@ public class MedicHeal : MonoBehaviour
 
     void HealUnit()
     {
-        Debug.Log("heal");
+        //Debug.Log("heal");
         //Physic raycast to get all GO with "Unit" mask and in radius healRadius in en Collider2D array
 
         LayerMask mask = LayerMask.GetMask(LayerMask.LayerToName(unitLayerID));
@@ -81,7 +81,7 @@ public class MedicHeal : MonoBehaviour
         }
         foreach (var item in en)
         {
-            Debug.Log(item);
+            //Debug.Log(item);
             //GetHeal() Method of each unit's inside the healRadius is called
             item.gameObject.GetComponent<UnitLife>().GetHeal(healAmount);
         }

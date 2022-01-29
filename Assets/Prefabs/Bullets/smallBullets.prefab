@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7691064687163523766}
   - component: {fileID: 7291519277895552228}
   - component: {fileID: 3497772001301473363}
+  - component: {fileID: 5895245857235003795}
   m_Layer: 0
   m_Name: smallBullets
   m_TagString: Untagged
@@ -30,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 8741956489778069309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -124,7 +125,6 @@ MonoBehaviour:
   damage: 1
   propulsionForce: 5000
   explosionRadius: 0
-  knockbackForce: 5
 --- !u!50 &7291519277895552228
 Rigidbody2D:
   serializedVersion: 4
@@ -172,3 +172,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08, y: 0.08}
   m_EdgeRadius: 0
+--- !u!114 &5895245857235003795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741956489778069309}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925532f592ebd2b439e96e0660338bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 20
+  lifeTime: 0.5

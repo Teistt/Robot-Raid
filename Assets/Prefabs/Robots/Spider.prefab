@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   attackSpeed: 1
-  knockbackForce: 15
+  knockbackForce: 6
 --- !u!195 &1684103416810128526
 NavMeshAgent:
   m_ObjectHideFlags: 0

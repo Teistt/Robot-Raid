@@ -5,6 +5,7 @@ public class MouseManager : MonoBehaviour
 {
     public static MouseManager Instance { get; private set; }
 
+    [SerializeField] private Texture2D mouseCursor;
 
     public List<UnitsSelection> SELECTED_UNITS = new List<UnitsSelection>();
     private bool _isDraggingMouseBox = false;
@@ -24,7 +25,7 @@ public class MouseManager : MonoBehaviour
         Instance = this;
         Physics2D.gravity = Vector2.zero;
         Physics.gravity = Vector3.zero;
-
+        Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
     }
 
 

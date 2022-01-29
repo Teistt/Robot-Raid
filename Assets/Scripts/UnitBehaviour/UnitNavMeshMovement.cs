@@ -47,8 +47,9 @@ public class UnitNavMeshMovement : MonoBehaviour
         {
             if (rb.velocity.magnitude < 1f)
             {
-                agent.enabled = true;
+                rb.velocity = Vector2.zero;
                 rb.isKinematic = true;
+                agent.enabled = true;
 
                 _isKnockdBack = false;
             }

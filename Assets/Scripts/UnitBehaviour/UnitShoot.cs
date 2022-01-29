@@ -51,7 +51,7 @@ public class UnitShoot : MonoBehaviour
         {
             if (_isMoving)
             {
-                Debug.Log("cannot shoot");
+                //Debug.Log("cannot shoot");
                 return;
             }
 

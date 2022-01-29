@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   attackSpeed: 1
-  knockbackForce: 15
+  knockbackForce: 6
 --- !u!114 &6105488812138479944
 MonoBehaviour:
   m_ObjectHideFlags: 0
