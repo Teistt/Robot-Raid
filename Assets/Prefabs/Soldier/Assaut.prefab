@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 4
+  life: 0
   deadSprite: {fileID: 8790480526523020917, guid: 7d534ea9044db5340a98ec8eb664a97f, type: 3}
   hitVFX: {fileID: 1652029882642523393, guid: 2dc08c4410d6fc546a0cd3788c254f51, type: 3}
 --- !u!114 &552801141
@@ -202,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6188498313016274238}
   bulletPrefab: {fileID: 8741956489778069309, guid: aedd7ed521a1afb4b9f8c407f401becf, type: 3}
-  shootRange: 7
+  shootRange: 5
   fireRate: 1
   enemyLayerName: Enemy
 --- !u!61 &552801140

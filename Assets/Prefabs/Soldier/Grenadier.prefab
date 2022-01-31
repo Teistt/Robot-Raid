@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 4
+  life: 0
   deadSprite: {fileID: 5548173826960768374, guid: ae375270759f4f94a874f17cd70012b3, type: 3}
   hitVFX: {fileID: 1652029882642523393, guid: 2dc08c4410d6fc546a0cd3788c254f51, type: 3}
 --- !u!114 &6824939434686954991
@@ -287,8 +288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6824939433046598794}
   bulletPrefab: {fileID: 8741956489778069309, guid: 540a18795f58fc840ab4580f535e5cc1, type: 3}
-  shootRange: 7
-  fireRate: 0.5
+  shootRange: 5
+  fireRate: 0.7
   enemyLayerName: Enemy
 --- !u!61 &6824939434686954988
 BoxCollider2D:

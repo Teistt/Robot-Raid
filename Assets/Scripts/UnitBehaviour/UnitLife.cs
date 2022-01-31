@@ -4,7 +4,7 @@ using UnityEngine;
 public class UnitLife : MonoBehaviour
 {
     [SerializeField] private int maxLife = 4;
-    private int life;
+    [SerializeField] private int life;
     [SerializeField] private GameObject deadSprite;
     [SerializeField] private GameObject hitVFX;
     private UnitNavMeshMovement unitNavigation;
