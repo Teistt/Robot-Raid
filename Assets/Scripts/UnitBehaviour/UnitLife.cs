@@ -13,7 +13,7 @@ public class UnitLife : MonoBehaviour
     private Animator anim;
 
 
-    public static event Action<GameObject> OnUnitDie;
+    public static event Action<GameObject> OnUnitDieGO;
     public static event Action<GameObject> OnUnitSpawn;
 
     void Awake()
@@ -53,7 +53,7 @@ public class UnitLife : MonoBehaviour
 
     void Die()
     {
-        OnUnitDie?.Invoke(gameObject);
+        OnUnitDieGO?.Invoke(gameObject);
         GetComponent<UnitsSelection>().Deselect();
         if (deadSprite != null)
         {

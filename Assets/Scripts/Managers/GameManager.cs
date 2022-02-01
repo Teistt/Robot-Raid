@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         UnitLife.OnUnitSpawn += OnUnitSpawn;
-        UnitLife.OnUnitDie += OnUnitDie;
+        UnitLife.OnUnitDieGO += OnUnitDieGO;
 
         EnemyLife.OnEnemyDie += OnEnemyDie;
     }
@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         UnitLife.OnUnitSpawn -= OnUnitSpawn;
-        UnitLife.OnUnitDie -= OnUnitDie;
+        UnitLife.OnUnitDieGO -= OnUnitDieGO;
 
         EnemyLife.OnEnemyDie -= OnEnemyDie;
     }
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
         unitsList.Add(n_unit);
     }
 
-    void OnUnitDie(GameObject n_unit)
+    void OnUnitDieGO(GameObject n_unit)
     {
         unitsList.Remove(n_unit);
         

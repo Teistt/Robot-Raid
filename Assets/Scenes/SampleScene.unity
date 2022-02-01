@@ -6223,7 +6223,7 @@ MonoBehaviour:
   - {fileID: 9070592177775849931, guid: 7817fe49d5589dd4eb00a78a7b15811e, type: 3}
   unitsList: []
   score: 0
-  probability: 10
+  probability: 15
   _isDebugNoSpawn: 0
   spawnerTimer: 10
   gameScene:

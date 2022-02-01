@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6992728194299696357}
   bulletPrefab: {fileID: 8741956489778069309, guid: aedd7ed521a1afb4b9f8c407f401becf, type: 3}
-  shootRange: 5
+  shootRange: 4.2
   fireRate: 2
   enemyLayerName: Enemy
 --- !u!61 &2042926452001481014
