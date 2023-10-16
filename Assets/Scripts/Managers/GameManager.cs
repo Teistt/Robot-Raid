@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -207,7 +206,6 @@ public class GameManager : MonoBehaviour
         {
             OnGameOver?.Invoke();
 
-            Debug.Log("GAME LOST");
             //Time.timeScale = 0f;
 
             //ici fire action pour uimanager game screen

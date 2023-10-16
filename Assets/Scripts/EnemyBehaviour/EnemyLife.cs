@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyLife : MonoBehaviour
 {
     [SerializeField] private int life = 4;
+    [SerializeField] public Slider lifeSlider;
     [SerializeField] private int reward = 10;
     [SerializeField] private GameObject deadSprite;
     private bool _isDead = false;
@@ -31,6 +33,8 @@ public class EnemyLife : MonoBehaviour
     private void Awake()
     {
         enemyNav = GetComponent<EnemyNavMesh>();
+        lifeSlider.maxValue = life;
+        lifeSlider.value = life;
     }
 
     private void Update()
@@ -46,6 +50,8 @@ public class EnemyLife : MonoBehaviour
     {
         life -= damage;
 
+        lifeSlider.gameObject.SetActive(true);
+        lifeSlider.value = life;
         if (life <= 0)
         {
             _isDead = true;

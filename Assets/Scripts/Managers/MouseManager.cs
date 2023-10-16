@@ -8,6 +8,8 @@ public class MouseManager : MonoBehaviour
     [SerializeField] private Texture2D mouseCursor;
 
     public List<UnitsSelection> SELECTED_UNITS = new List<UnitsSelection>();
+    public List<UnitsSelection> PRESENT_UNITS = new List<UnitsSelection>();
+
     private bool _isDraggingMouseBox = false;
     private Vector3 _dragStartPosition;
     private Vector3 targetMovePosition;
@@ -26,6 +28,13 @@ public class MouseManager : MonoBehaviour
         Physics2D.gravity = Vector2.zero;
         Physics.gravity = Vector3.zero;
         Cursor.SetCursor(mouseCursor, Vector2.zero, CursorMode.Auto);
+
+
+        GameObject[] initialUnits = GameObject.FindGameObjectsWithTag("Unit");
+        foreach(var unit in initialUnits)
+        {
+            PRESENT_UNITS.Add(unit.GetComponent<UnitsSelection>());
+        }
     }
 
 
@@ -77,6 +86,16 @@ public class MouseManager : MonoBehaviour
                         countY++;
                     }
                 }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            Debug.Log("All units selected");
+            SELECTED_UNITS.Clear();
+            foreach (UnitsSelection unit in PRESENT_UNITS)
+            {
+                unit.GetComponent<UnitsSelection>().Select();
             }
         }
     }

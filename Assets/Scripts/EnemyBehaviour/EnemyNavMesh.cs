@@ -13,9 +13,9 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private int enemyLayerID = 6;
     //[SerializeField] private int unitLayerID = 3;
 
-    private float detectionRange = 19f;
+    private float detectionRange = 25f;
     private bool facingRight = true;
-    private float attackRange = 1f;
+    [SerializeField] private float attackRange = 1f;
     private bool _isNavMesh = false;
     private bool _isKnockdBack = false;
 
@@ -56,6 +56,8 @@ public class EnemyNavMesh : MonoBehaviour
             rb.isKinematic = true;
             _isNavMesh = true;
             gameObject.layer =enemyLayerID;
+
+            Debug.Log("navmesh enable");
         }
     }
 
@@ -154,6 +156,7 @@ public class EnemyNavMesh : MonoBehaviour
         {
             facingRight = !facingRight;
             transform.Rotate(0, 180, 0);
+            GetComponent<EnemyLife>().lifeSlider.transform.Rotate(0, 180, 0);
         }
     }
 
@@ -164,6 +167,7 @@ public class EnemyNavMesh : MonoBehaviour
             return;
         }
 
+        //Debug.Log(agent.remainingDistance);
         if (agent.remainingDistance <= attackRange)
         {
             attackScript.SetAttack(targetUnit);
