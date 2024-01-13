@@ -117,6 +117,11 @@ public class UnitShoot : MonoBehaviour
 
     void LookHorSide(Vector3 targetEnemy)
     {
+        if (targetEnemy == null)
+        {
+            Debug.Log("Vector3 null");
+            return;
+        }
         //check if targetted enemy is at our right or left
         float horizontalValue = transform.position.x - targetEnemy.x;
         //If we are not facing it, we turn unit around

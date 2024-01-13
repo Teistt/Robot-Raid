@@ -57,7 +57,7 @@ public class EnemyNavMesh : MonoBehaviour
             _isNavMesh = true;
             gameObject.layer =enemyLayerID;
 
-            Debug.Log("navmesh enable");
+            //Debug.Log("navmesh enable");
         }
     }
 
