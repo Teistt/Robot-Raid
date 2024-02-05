@@ -57,7 +57,7 @@ public class EnemyAttack : MonoBehaviour
         if (fireCtdw <= 0f)
         {
             Vector3 knockback = ((unitLife.transform.position - transform.position).normalized) * knockbackForce;
-            unitLife.GetHit(damage,knockback);
+            unitLife.TakeDamage(damage,knockback);
             fireCtdw = 1 / attackSpeed;
             //firerate correspond à nb coup/s; donc le cooldown est l'inverse
             //aka fireRate=2 donc fireCtdw=1/2=.5s

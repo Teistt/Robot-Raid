@@ -411,10 +411,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb08dfa155ab4454aa04a341ccfdbce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 4
+  maxLife: 4
   lifeSlider: {fileID: 2793349808228504760}
-  reward: 10
   deadSprite: {fileID: 5812729137899427258, guid: ce3c643c19b22da4482bf649b5a8e55e, type: 3}
+  hitVFX: {fileID: 0}
+  reward: 10
 --- !u!114 &6353077423217331010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9846ae07605e41e48a8f04e3adeeb5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2.8
+  walkSpeed: 2
   slowRate: 0.5
   slowedTime: 2
   obstacleLayerID: 7
@@ -457,7 +458,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6353077423217331018}
   m_Enabled: 1
-  m_AgentTypeID: 287145453
+  m_AgentTypeID: -1923039037
   m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8

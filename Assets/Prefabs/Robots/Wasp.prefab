@@ -151,8 +151,8 @@ GameObject:
   - component: {fileID: 6585938885627656118}
   - component: {fileID: 3013149250345913614}
   - component: {fileID: 8659512238156066464}
-  - component: {fileID: 4930753144833650717}
   - component: {fileID: 4493818309730531659}
+  - component: {fileID: 4930753144833650717}
   - component: {fileID: 3283505183366383066}
   - component: {fileID: -4251227694670479258}
   - component: {fileID: -4689127855618982489}
@@ -324,6 +324,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4493818309730531659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585938885627656105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb08dfa155ab4454aa04a341ccfdbce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 2
+  lifeSlider: {fileID: 7213771659480386145}
+  deadSprite: {fileID: 6050290614075291462, guid: 3b453b11f47bf3040b53e05566170bfb, type: 3}
+  hitVFX: {fileID: 0}
+  reward: 2
 --- !u!114 &4930753144833650717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,22 +356,6 @@ MonoBehaviour:
   damage: 1
   attackSpeed: 1
   knockbackForce: 6
---- !u!114 &4493818309730531659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585938885627656105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb08dfa155ab4454aa04a341ccfdbce1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 1
-  lifeSlider: {fileID: 7213771659480386145}
-  reward: 2
-  deadSprite: {fileID: 6050290614075291462, guid: 3b453b11f47bf3040b53e05566170bfb, type: 3}
 --- !u!114 &3283505183366383066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +383,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6585938885627656105}
   m_Enabled: 1
-  m_AgentTypeID: 287145453
+  m_AgentTypeID: 0
   m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8

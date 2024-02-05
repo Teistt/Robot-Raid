@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
             if (explosionRadius <= 0)
             {
                 Vector3 knockback = ((collision.transform.position - rb.transform.position).normalized);
-                collision.GetComponent<EnemyLife>().GetHit(damage);
+                collision.GetComponent<EnemyLife>().TakeDamage(damage);
                 //collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
             }
             else
@@ -63,7 +63,7 @@ public class Bullet : MonoBehaviour
                 {
 
                     Vector3 knockback = ((item.transform.position - rb.transform.position).normalized);
-                    item.GetComponent<EnemyLife>().GetHit(damage);
+                    item.GetComponent<EnemyLife>().TakeDamage(damage);
                 }
             }
         }

@@ -129,7 +129,7 @@ public class UnitShoot : MonoBehaviour
         {
             facingRight = !facingRight;
             transform.Rotate(0, 180, 0);
-            GetComponent<UnitLife>().lifeSlider.transform.Rotate(0, 180, 0);
+            GetComponent<UnitLife>().FlipLifeSliderSprite(!facingRight);
         }
     }
 

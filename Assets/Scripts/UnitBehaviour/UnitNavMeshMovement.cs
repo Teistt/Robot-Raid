@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class UnitNavMeshMovement : MonoBehaviour
+public class UnitNavMeshMovement : NavMeshManager
 {
 //    [SerializeField] private float walkSpeed = 3f;
     //[SerializeField] private float walkTargetPrecision = .2f;
@@ -10,7 +10,7 @@ public class UnitNavMeshMovement : MonoBehaviour
 
     private bool isMoving=false;
     //private bool _isNavMesh = false;
-    private bool _isKnockdBack = false;
+    private bool _isKnockedBack = false;
     //int countFrame = 0;
     public static event Action<bool> OnMoving;
 
@@ -43,7 +43,7 @@ public class UnitNavMeshMovement : MonoBehaviour
         }
 
 
-        if (_isKnockdBack)
+        if (_isKnockedBack)
         {
             if (rb.velocity.magnitude < 1f)
             {
@@ -51,7 +51,7 @@ public class UnitNavMeshMovement : MonoBehaviour
                 rb.isKinematic = true;
                 agent.enabled = true;
 
-                _isKnockdBack = false;
+                _isKnockedBack = false;
             }
             else
             {
@@ -85,9 +85,12 @@ public class UnitNavMeshMovement : MonoBehaviour
     }
 
 
-    public void Knocked(Vector3 knockback)
+    public override void Knocked(Vector3 knockback)
     {
-        _isKnockdBack = true;
+        if(knockback==null || knockback==Vector3.zero)
+        { return; }
+
+        _isKnockedBack = true;
         agent.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(knockback, ForceMode2D.Impulse);

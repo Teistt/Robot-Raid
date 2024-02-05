@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyNavMesh : MonoBehaviour
+public class EnemyNavMesh : NavMeshManager
 {
 
     [SerializeField] private float walkSpeed = 3f;
@@ -156,7 +156,7 @@ public class EnemyNavMesh : MonoBehaviour
         {
             facingRight = !facingRight;
             transform.Rotate(0, 180, 0);
-            GetComponent<EnemyLife>().lifeSlider.transform.Rotate(0, 180, 0);
+            GetComponent<EnemyLife>().FlipLifeSliderSprite(facingRight);
         }
     }
 
@@ -193,7 +193,7 @@ public class EnemyNavMesh : MonoBehaviour
         rb.velocity = actualDir * walkSpeed;
     }
 
-    public void SetSlow()
+    public override void SetSlow()
     {
         agent.speed= walkSpeed * slowRate;
         StartCoroutine(SlowMo());
