@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class UnitLife : LifeManager
+public class UnitLife : LifeManager, IGetHeal
 {
     public static event Action<GameObject> OnUnitDieGO;
     public static event Action<GameObject> OnUnitSpawn;
@@ -17,6 +17,15 @@ public class UnitLife : LifeManager
         GetComponent<UnitsSelection>().Select();
     }
 
+    public void GetHeal(int amount)
+    {
+        if (life < maxLife)
+        {
+            //Instantiate(healVFX, transform);
+            life += amount;
+        }
+        UpdateSlider();
+    }
 
     protected override void AdditionalHit()
     {
@@ -40,6 +49,4 @@ public class UnitLife : LifeManager
 
         Destroy(gameObject);
     }
-
-
 }

@@ -30,19 +30,6 @@ public class LifeManager : MonoBehaviour
 
     protected virtual void Init() { }
 
-    public void GetHeal(int amount)
-    {
-        if (life < maxLife)
-        {
-            //Instantiate(healVFX, transform);
-            life += amount;
-        }
-        UpdateSlider();
-
-        AdditionalHeal();
-    }
-
-    protected virtual void AdditionalHeal() { }
 
     public void TakeDamage(int damage, Vector3 knockback =new Vector3())
     {

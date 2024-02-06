@@ -2,10 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyNavMesh : NavMeshManager
 {
-
-    [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float slowRate = .5f;
     [SerializeField] private float slowedTime = 2f;
     [SerializeField] private int obstacleLayerID=7;
@@ -13,16 +12,16 @@ public class EnemyNavMesh : NavMeshManager
     [SerializeField] private int enemyLayerID = 6;
     //[SerializeField] private int unitLayerID = 3;
 
+    [SerializeField] private int searchNearestUnitRate = 4;
+    private int snuRateCnt;
     private float detectionRange = 25f;
     private bool facingRight = true;
     [SerializeField] private float attackRange = 1f;
     private bool _isNavMesh = false;
-    private bool _isKnockdBack = false;
+    
 
     private GameObject targetUnit;
-    private EnemyAttack attackScript;
-    private Rigidbody2D rb;
-    private NavMeshAgent agent;
+    private EnemyAttack m_attackScript;
 
     LayerMask mask;
 
@@ -46,14 +45,15 @@ public class EnemyNavMesh : NavMeshManager
     #endregion
 
 
+    //when enemies start, they are on a wall. they move until collider trigger exit, then we activate navmesh
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == obstacleLayerID)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
             gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            rb.velocity = new Vector2(0, 0);
-            rb.isKinematic = true;
+            m_rb.velocity = new Vector2(0, 0);
+
             _isNavMesh = true;
             gameObject.layer =enemyLayerID;
 
@@ -61,42 +61,36 @@ public class EnemyNavMesh : NavMeshManager
         }
     }
 
-    private void Awake()
+    protected override void Init()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
+        //initVelocity = m_agent.velocity;
 
-        attackScript = gameObject.GetComponent<EnemyAttack>();
-        agent = GetComponent<NavMeshAgent>();
-        //initVelocity = agent.velocity;
-        agent.speed = walkSpeed;
+        m_attackScript = gameObject.GetComponent<EnemyAttack>();
         mask = LayerMask.GetMask(unitLayerName);
+
+        //at init, we want first fixedupdate to search nearest unit
+        snuRateCnt = searchNearestUnitRate;
     }
-
-
-    void Start()
-    {
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-    }
-
 
     void FixedUpdate()
     {
-        FindNearestUnit();
+        //avoiding too much scans for performance
+        if(snuRateCnt>=searchNearestUnitRate)
+        {
+            snuRateCnt = 0;
+            FindNearestUnit();
+        }
+        else
+            snuRateCnt++;
 
         if (_isKnockdBack)
         {
-            if (rb.velocity.magnitude < 1f)
+            if (m_rb.velocity.magnitude < 1f)
             {
-                agent.enabled = true;
-                rb.isKinematic = true;
+                m_agent.enabled = true;
+                m_rb.isKinematic = true;
 
                 _isKnockdBack = false;
-            }
-            else
-            {
-                return;
             }
         }
 
@@ -104,15 +98,15 @@ public class EnemyNavMesh : NavMeshManager
         {
             if (_isNavMesh)
             {
-                agent.enabled = false;
+                m_agent.enabled = false;
             }
             return;
         }
 
         if (_isNavMesh)
         {
-            agent.enabled = true;
-            agent.SetDestination(targetUnit.transform.position);
+            m_agent.enabled = true;
+            m_agent.SetDestination(targetUnit.transform.position);
             CanAttack();
         }
         else
@@ -162,19 +156,19 @@ public class EnemyNavMesh : NavMeshManager
 
     void CanAttack()
     {
-        if (agent.pathPending)
+        if (m_agent.pathPending)
         {
             return;
         }
 
         //Debug.Log(agent.remainingDistance);
-        if (agent.remainingDistance <= attackRange)
+        if (m_agent.remainingDistance <= attackRange)
         {
-            attackScript.SetAttack(targetUnit);
+            m_attackScript.SetAttack(targetUnit);
         }
         else
         {
-            attackScript.StopAttack();
+            m_attackScript.StopAttack();
         }
     }
 
@@ -190,25 +184,25 @@ public class EnemyNavMesh : NavMeshManager
         actualDir.x = Mathf.Clamp(actualDir.x, -1f, 1f);
         actualDir.y = Mathf.Clamp(actualDir.y, -1f, 1f);
 
-        rb.velocity = actualDir * walkSpeed;
+        m_rb.velocity = actualDir * walkSpeed;
     }
 
     public override void SetSlow()
     {
-        agent.speed= walkSpeed * slowRate;
+        m_agent.speed= walkSpeed * slowRate;
         StartCoroutine(SlowMo());
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 
     IEnumerator SlowMo()
     {
         yield return new WaitForSeconds(slowedTime);
 
-        agent.speed = walkSpeed;
+        m_agent.speed = walkSpeed;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }

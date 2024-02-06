@@ -7576,26 +7576,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 552801141, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: shootRange
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1918314247, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: lifeSlider
-      value: 
-      objectReference: {fileID: 1515387483}
-    - target: {fileID: 1845588784565896837, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1845588784565896837, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2262077428436479685, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5166840985047464494, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7639,14 +7619,6 @@ PrefabInstance:
     - target: {fileID: 5166840985047464496, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
       propertyPath: m_Name
       value: Assaut
-      objectReference: {fileID: 0}
-    - target: {fileID: 5892187669729744899, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477314730053905759, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12704,17 +12676,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1120358871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1515387483 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 581532967847560806, guid: a8d30ba4df992fa408485961deb07d37, type: 3}
-  m_PrefabInstance: {fileID: 1184777320}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1732157424
 GameObject:
   m_ObjectHideFlags: 0
