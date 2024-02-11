@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class LifeManager : MonoBehaviour
@@ -12,18 +14,20 @@ public class LifeManager : MonoBehaviour
 
     [SerializeField] protected GameObject hitVFX;
     
-    protected NavMeshManager m_navMesh;
     protected Animator m_anim;
+    protected Rigidbody2D m_rb;
+    protected NavMeshAgent m_agent;
 
-    // Start is called before the first frame update
+    
     void Awake()
     {
         life = maxLife;
         lifeSlider.maxValue = maxLife;
         lifeSlider.value = life;
 
-        m_navMesh = GetComponent<NavMeshManager>();
         m_anim = GetComponent<Animator>();
+        m_rb = GetComponent<Rigidbody2D>();
+        m_agent = GetComponent<NavMeshAgent>();
 
         Init();
     }
@@ -37,7 +41,7 @@ public class LifeManager : MonoBehaviour
 
         if(knockback!=null)
         {
-            m_navMesh.Knocked(knockback);
+            gameObject.GetComponent<EnemyBehaviourStateMachine>().KnockbackHandler(knockback);
         }
 
         if (life <= 0)
@@ -50,9 +54,36 @@ public class LifeManager : MonoBehaviour
         }
     }
 
+
+    private void KnockbackCheck()
+    {
+        Debug.Log("knocker check");
+        if (m_rb.velocity.magnitude < 1f)
+        {
+            m_rb.velocity = Vector2.zero;
+            m_rb.isKinematic = true;
+            m_agent.enabled = true;
+        }
+    }
+
+    public virtual void Knocked(Vector3 knockback)
+    {
+        if (knockback == null || knockback == Vector3.zero)
+        { return; }
+
+        m_agent.enabled = false;
+        m_rb.isKinematic = false;
+        m_rb.AddForce(knockback, ForceMode2D.Impulse);
+
+        InvokeRepeating("KnockbackCheck", 0.05f, 0.1f);
+    }
+
     protected void Hit()
     {
         UpdateSlider();
+
+        //TODO: ENEMY SLOW MODE
+        //OnHitSlowMo?.Invoke();
 
         if (hitVFX != null)
         {

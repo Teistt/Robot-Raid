@@ -27,11 +27,13 @@ public class EnemyLife : LifeManager
 
     protected override void AdditionalHit()
     {
-        if(m_navMesh != null)
-        {
-            m_navMesh.SetSlow();
-        }
+        //if(m_navMesh != null)
+        //{
+        //    m_navMesh.SetSlow();
+        //}
     }
+
+
 
     protected override void Die()
     {
@@ -42,7 +44,7 @@ public class EnemyLife : LifeManager
             Instantiate(deadSprite, transform.position, Quaternion.identity);
         }
 
-        GetComponent<EnemyAttack>().enabled = false;
+        //GetComponent<EnemyAttack>().enabled = false;
         GetComponent<Rigidbody2D>().isKinematic = false;
         
         //TODO: OBJECT POOLING

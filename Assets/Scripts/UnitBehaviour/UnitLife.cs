@@ -29,6 +29,7 @@ public class UnitLife : LifeManager, IGetHeal
 
     protected override void AdditionalHit()
     {
+        Debug.Log(gameObject.name + " is hit");
         if (m_anim != null)
         {
             m_anim.SetTrigger("_getHit");

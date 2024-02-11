@@ -391,8 +391,7 @@ GameObject:
   - component: {fileID: 1952200289895321464}
   - component: {fileID: 7915816024490026384}
   - component: {fileID: 1281817091726767190}
-  - component: {fileID: 2340859893309662995}
-  - component: {fileID: -7029755388069776638}
+  - component: {fileID: 7717885266329326407}
   - component: {fileID: -2927478170944125764}
   - component: {fileID: 572174514847091347}
   m_Layer: 6
@@ -580,7 +579,7 @@ MonoBehaviour:
   deadSprite: {fileID: 6050290614075291462, guid: f97e0b57ad6fd7d428a1973106c5c663, type: 3}
   hitVFX: {fileID: 0}
   reward: 10
---- !u!114 &2340859893309662995
+--- !u!114 &7717885266329326407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -589,31 +588,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 9145040601395170273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a518fefda62334d8ba483503feec62, type: 3}
+  m_Script: {fileID: 11500000, guid: c71f7c832bbb52e43bbc7c434822481b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  attackSpeed: 1
-  knockbackForce: 6
---- !u!114 &-7029755388069776638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9145040601395170273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9846ae07605e41e48a8f04e3adeeb5f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 2
-  slowRate: 0.5
-  slowedTime: 2
-  obstacleLayerID: 7
   unitLayerName: Unit
-  enemyLayerID: 6
-  attackRange: 0.8
+  detectionRange: 25
+  searchNearestUnitRate: 4
+  <moveSpeed>k__BackingField: 3
+  <damage>k__BackingField: 1
+  <attackRange>k__BackingField: 3
+  <attackSpeed>k__BackingField: 1
+  <knockbackForce>k__BackingField: 7
 --- !u!195 &-2927478170944125764
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -635,7 +620,7 @@ NavMeshAgent:
   m_Height: 1.2
   m_BaseOffset: 0.6
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!114 &572174514847091347
 MonoBehaviour:
   m_ObjectHideFlags: 0

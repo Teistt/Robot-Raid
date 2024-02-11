@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
             if (explosionRadius <= 0)
             {
                 Vector3 knockback = ((collision.transform.position - rb.transform.position).normalized);
-                collision.GetComponent<EnemyLife>().TakeDamage(damage);
+                collision.GetComponent<LifeManager>().TakeDamage(damage,knockback);
                 //collision.attachedRigidbody.AddForce(knockback.normalized * knockbackForce);
             }
             else
@@ -61,9 +61,8 @@ public class Bullet : MonoBehaviour
                 Collider2D[] en = Physics2D.OverlapCircleAll(transform.position, explosionRadius, mask);
                 foreach (var item in en)
                 {
-
                     Vector3 knockback = ((item.transform.position - rb.transform.position).normalized);
-                    item.GetComponent<EnemyLife>().TakeDamage(damage);
+                    item.GetComponent<LifeManager>().TakeDamage(damage,knockback);
                 }
             }
         }

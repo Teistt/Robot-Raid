@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-public class autoDestroy : MonoBehaviour
+public class AutoDestroy : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 1.5f;
 

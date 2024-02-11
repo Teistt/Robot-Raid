@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 895
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -6682,7 +6682,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 895
   m_UseGeometry: 1
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -7065,8 +7065,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: -1923039037
   m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 18.729443, y: 10, z: 10}
+  m_Center: {x: 4.3647213, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -7640,7 +7640,7 @@ GameObject:
   - component: {fileID: 1216553039}
   - component: {fileID: 1216553038}
   - component: {fileID: 1216553037}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: WallsL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8993,11 +8993,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   robotsPrefab:
-  - {fileID: 6585938885627656105, guid: 0737de8fb2cd2744bbf89e4ac43b7748, type: 3}
+  - {fileID: 6585938885627656105, guid: ccd73bd41f2bc534bb49c029ff8396c5, type: 3}
   - {fileID: 8142656157520608100, guid: 8d878df592712044bb2f894aaa5a77c9, type: 3}
   - {fileID: 9145040601395170273, guid: 1a398b57ac75f254f9111467175c50c0, type: 3}
   - {fileID: 6353077423217331018, guid: 13c2d80f9c973c947a8c222910e7bd41, type: 3}
-  robotsCost: 01000000020000000400000005000000
+  robotsCost: 01000000020000000300000004000000
   pickUps:
   - {fileID: 3722540995217157498, guid: 15bf1fd4e7c6db644a3eb98193a2bc65, type: 3}
   - {fileID: 6338374474449184196, guid: 9cf9a04502901c442aa62e47c5b1f2b3, type: 3}
@@ -9067,7 +9067,7 @@ GameObject:
   - component: {fileID: 1338156308}
   - component: {fileID: 1338156312}
   - component: {fileID: 1338156311}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12644,7 +12644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 287145453
-  m_CollectObjects: 1
+  m_CollectObjects: 0
   m_Size: {x: 28.241787, y: 10, z: 15.885078}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:

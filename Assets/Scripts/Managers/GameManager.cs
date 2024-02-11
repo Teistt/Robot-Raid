@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
             int indexToSpawn;
             switch (availableTokens)
             {
-                case 5:
+                case 4:
                     indexToSpawn = 3;
                     availableTokens -= robotsCost[indexToSpawn];
                     DetermineSpawnPoint();
@@ -122,16 +122,8 @@ public class GameManager : MonoBehaviour
                     enemiesCount++;
                     break;
 
-                case 4:
-                    indexToSpawn = 2;
-                    availableTokens -= robotsCost[indexToSpawn];
-                    DetermineSpawnPoint();
-                    Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
-                    enemiesCount++;
-                    break;
-
                 case 3:
-                    indexToSpawn = 0;
+                    indexToSpawn = 2;
                     availableTokens -= robotsCost[indexToSpawn];
                     DetermineSpawnPoint();
                     Instantiate(robotsPrefab[indexToSpawn], spawnPos, Quaternion.identity);
